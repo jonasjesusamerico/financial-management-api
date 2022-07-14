@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+
+  mysql:
+    container_name: mysql_mercafacil
+    image: mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=admin
+    - MYSQL_DATABASE=admin
+    - MYSQL_USER=admin
+    - MYSQL_PASSWORD=admin
+    - MYSQL_ROOT_HOST=%
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+
+  postgresql:
+    container_name: postgresql_mercafacil
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_USER: "admin"
+
+  financial-management-api:
+    container_name: financial-management-api
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - .:/app
+    environment:
+      API_SERVER_ADDR: ":8000"
+    depends_on:
+      - "postgresql"
+      - "mysql"
+    ports:
+    - "8000:8000"
+
+# networks:
+#   default:
+#     name: jonas_default
+#     external: true

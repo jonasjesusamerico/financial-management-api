@@ -48,8 +48,7 @@ func ConnectWithDatabase() {
 		log.Panic("Erro ao conectar ao banco de dados Teste", err)
 	}
 
-	Connection.db_postgres.AutoMigrate(&model.Telefone{}, &model.Usuario{})
-	Connection.db_mysql.AutoMigrate(&model.Telefone{}, &model.Usuario{})
+	Connection.db_postgres.AutoMigrate(&model.Usuario{})
 
 	if err != nil {
 		fmt.Println("Teste: ", err.Error())

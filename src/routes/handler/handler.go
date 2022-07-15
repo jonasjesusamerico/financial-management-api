@@ -34,7 +34,6 @@ func (h Handler) MakeHandlers() {
 
 	rotasV1 := []IHandler{
 		&UsuarioHandler{},
-		&TelefoneHandler{},
 	}
 
 	criaRotas(rotasMain, &basicRepository, main)

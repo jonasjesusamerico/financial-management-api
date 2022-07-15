@@ -79,5 +79,5 @@ func where(query string, args ...interface{}) *gorm.DB {
 }
 
 func getBancoDados() (bancoDados *gorm.DB) {
-	return database.Connection.WithContext()
+	return database.Connect.GetInstance()
 }

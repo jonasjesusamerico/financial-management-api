@@ -1,57 +1,38 @@
 package database
 
 import (
-	"api-controle/src/contexto"
+	"api-controle/src/config"
 	"api-controle/src/model"
-	"api-controle/src/model/enum"
-	"fmt"
 	"log"
 
-	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var (
-	Connection database
-	err        error
+	Connect Db
+	err     error
 )
 
-type database struct {
-	db_mysql    *gorm.DB
+type Db struct {
 	db_postgres *gorm.DB
 }
 
-func (d database) WithContext() (bancoDados *gorm.DB) {
-	key := contexto.ContextoAutenticacao.GetBancoDados()
-	if key == string(enum.MY_SQL) {
-		bancoDados = d.db_mysql
-		return
-	} else if key == string(enum.POSTGRES_SQL) {
-		bancoDados = d.db_postgres
-		return
-	}
+func (d Db) GetInstance() (bancoDados *gorm.DB) {
+	bancoDados = d.db_postgres
 	return
 }
 
-func ConnectWithDatabase() {
-	urlConexaoPostgres := "host=localhost user=admin password=admin dbname=postgres port=5432 sslmode=disable TimeZone=America/Sao_Paulo"
-	Connection.db_postgres, err = gorm.Open(postgres.Open(urlConexaoPostgres), &gorm.Config{})
+func ConectarBanco() {
+	Connect.db_postgres, err = gorm.Open(postgres.Open(config.StringConexaoBanco), &gorm.Config{})
 	if err != nil {
-		log.Panic("Erro ao conectar ao banco de dados 1")
+		log.Panic("Erro ao conectar ao banco de dados")
 	}
 
-	StringConexaoBanco := "admin:admin@tcp(localhost:3306)/admin?charset=utf8mb4&parseTime=True&loc=Local"
-	Connection.db_mysql, err = gorm.Open(mysql.Open(StringConexaoBanco), &gorm.Config{})
+	err = Connect.db_postgres.AutoMigrate(&model.Usuario{})
 
 	if err != nil {
-		log.Panic("Erro ao conectar ao banco de dados Teste", err)
-	}
-
-	Connection.db_postgres.AutoMigrate(&model.Usuario{})
-
-	if err != nil {
-		fmt.Println("Teste: ", err.Error())
+		log.Panic(err.Error())
 	}
 
 }

@@ -1,13 +1,15 @@
 package main
 
 import (
+	"api-controle/src/config"
 	"api-controle/src/contexto"
 	"api-controle/src/database"
 	"api-controle/src/routes"
 )
 
 func init() {
-	database.ConnectWithDatabase()
+	config.Carregar()
+	database.ConectarBanco()
 
 }
 

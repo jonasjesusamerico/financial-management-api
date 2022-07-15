@@ -1,7 +1,9 @@
 package routes
 
 import (
+	"api-controle/src/config"
 	"api-controle/src/routes/handler"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,5 +19,5 @@ func (route Router) Route() {
 
 	handler.Handler{Route: r}.MakeHandlers()
 
-	r.Run(":8000")
+	r.Run(":" + strconv.Itoa(config.Porta))
 }

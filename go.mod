@@ -10,7 +10,6 @@ require (
 	github.com/goccy/go-json v0.9.8
 	github.com/joho/godotenv v1.4.0
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
-	gorm.io/driver/mysql v1.3.5
 	gorm.io/driver/postgres v1.3.8
 	gorm.io/gorm v1.23.8
 )
@@ -20,7 +19,6 @@ require (
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.10.0 // indirect
-	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.12.1 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
